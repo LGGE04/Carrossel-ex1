@@ -8,6 +8,7 @@
 
     <script>
         
+        let id=1;
         let indiceAtual = 0;
 
         function adicionarImagem() {
@@ -24,7 +25,8 @@
             /*Criação de um novo elemento/Atribuição de uma classe ao novo/Definição do conteúdo interno do <div>/Adiciona o novo <div> ao documento HTML*/
             let novaDiv = document.createElement('div');
             novaDiv.className = 'imagem-carrossel';
-            novaDiv.innerHTML = `<img src="${url}" alt="Imagem carrossel"><div class="descricao">${descricao}</div>`;
+            novaDiv.innerHTML = `<img src="${url}" alt="Imagem carrossel"><div class="descricao">`+ id+ " - " +descricao+ `</div>`;
+            id++;
             container.appendChild(novaDiv);
 
             /*Limpa o valor de um campo de entrada (input)/Limpa o valor de outro campo de entrada (input)/Chama uma função para atualizar conteúdo: atualizarCarrossel()*/
