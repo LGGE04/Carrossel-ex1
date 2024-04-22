@@ -15,6 +15,12 @@
             const descricao = document.getElementById('descricaoImagem').value;
             const container = document.getElementById('containerImagens');
              
+            //Verifica se o ultilizador forneceu a imagem
+            if (url == "") {
+                alert("Por favor, insira a URL da imagem desejada")
+                return;
+            }
+
             /*Criação de um novo elemento/Atribuição de uma classe ao novo/Definição do conteúdo interno do <div>/Adiciona o novo <div> ao documento HTML*/
             let novaDiv = document.createElement('div');
             novaDiv.className = 'imagem-carrossel';
@@ -26,11 +32,6 @@
             document.getElementById('descricaoImagem').value = '';
             atualizarCarrossel();
 
-            //Verifica se o ultilizador forneceu a imagem
-            if (url == "") {
-                alert("Por favor, insira a URL da imagem desejada")
-                return
-            }
         }
 
         /*Seleção do container de imagens/Obtenção do número total de imagens/Atualização do índice atual baseado na direção/
