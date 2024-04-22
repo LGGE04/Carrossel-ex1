@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrossel</title>
+
+    <script>
+        
+        let indiceAtual = 0;
+
+        function adicionarImagem() {
+            const url = document.getElementById('urlImagem').value;
+            const descricao = document.getElementById('descricaoImagem').value;
+            const container = document.getElementById('containerImagens');
+             
+            /*Criação de um novo elemento/Atribuição de uma classe ao novo/Definição do conteúdo interno do <div>/Adiciona o novo <div> ao documento HTML*/
+            let novaDiv = document.createElement('div');
+            novaDiv.className = 'imagem-carrossel';
+            novaDiv.innerHTML = `<img src="${url}" alt="Imagem carrossel"><div class="descricao">${descricao}</div>`;
+            container.appendChild(novaDiv);
+
+            /*Limpa o valor de um campo de entrada (input)/Limpa o valor de outro campo de entrada (input)/Chama uma função para atualizar conteúdo: atualizarCarrossel()*/
+            document.getElementById('urlImagem').value = '';
+            document.getElementById('descricaoImagem').value = '';
+            atualizarCarrossel();
+
+            //Verifica se o ultilizador forneceu a imagem
+            if (url == "") {
+                alert("Por favor, insira a URL da imagem desejada")
+                return
+            }
+        }
+
+        /*Seleção do container de imagens/Obtenção do número total de imagens/Atualização do índice atual baseado na direção/
+        Condicional para controle de limites do índice/Aplicação da transformação CSS para mover o carrossel*/
+        function moverCarrossel(direcao) {
+            const container = document.getElementById('containerImagens');
+            const totalImagens = container.children.length;
+            indiceAtual += direcao;
+
+            if (indiceAtual >= totalImagens) {
+                indiceAtual = 0;
+            } else if (indiceAtual < 0) {
+                indiceAtual = totalImagens - 1;
+            }
+
+            container.style.transform = `translateX(${-100 * indiceAtual}%)`;
+        }
+
+        function atualizarCarrossel() {
+            const container = document.getElementById('containerImagens');
+            if (container.children.length > 1) {
+                container.style.transform = `translateX(${-100 * indiceAtual}%)`;
+            }
+        }
+
+    </script>
+
+    <style>
+        img {
+            width: 100%;
+        }
+
+        html {
+            background-color: #242424;
+            color: #E6FF00;
+        }
+
+        .carrossel {
+            position: relative;
+            width: 75vw;
+            margin: auto;
+            overflow: hidden;
+            margin-top: 50px;
+        }
+
+        .container-imagem {
+            display: flex;
+            transition: transform 0.5s ease;
+
+        }
+
+        .imagem-carrossel {
+            max-width: 100%;
+            min-width: 100%;
+            transition: transform 0.5s ease;
+            position: relative;
+        }
+
+        body {
+            align-items: center;
+        }
+
+        .descricao {
+            position: absolute;
+            bottom: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+        }
+
+
+
+        .botao-carrossel {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #E6FF00;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 100;
+        }
+
+        .botao-carrossel:hover {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        .botao-carrossel:first-child {
+            left: 0;
+        }
+
+        .botao-carrossel:last-child {
+            right: 0;
+        }
+
+        input {
+            border-radius: 5px;
+            border: none;
+            width: 24em;
+            padding: .50em;
+            box-shadow: 3px 3px 10px #E6FF00;
+        }
+
+        .adicionar {
+            border-radius: 5px;
+            border: none;
+            width: 25em;
+            padding: .50em;
+            box-shadow: 2px 2px 8px #E6FF00;
+        }
+
+
+        .addcarrossel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="addcarrossel">
+        <h2><b>Adicionar Imagem ao Carrossel</b></h2>
+        <input type="text" id="urlImagem" placeholder="URL da imagem">
+        <br><br>
+        <input type="text" id="descricaoImagem" placeholder="Descrição da imagem">
+        <br><br>
+        <button class="adicionar" onclick="adicionarImagem()">Adicionar</button>
+    </div>
+
+
+    <div class="carrossel">
+        <button class="botao-carrossel" onclick="moverCarrossel(-1)">&#10094;</button>
+        <div class="container-imagem" id="containerImagens"></div>
+        <button class="botao-carrossel" onclick="moverCarrossel(1)">&#10095;</button>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
